@@ -1,0 +1,17 @@
+﻿<MudDialog>
+    
+    <DialogContent>
+        <div class="d-flex justify-center">
+        <video autoplay controls src="@picture.VideoUrl" />
+        </div>
+    </DialogContent>
+    
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public Picture picture { get; set; } = new Picture();
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

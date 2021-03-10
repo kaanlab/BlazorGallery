@@ -1,0 +1,95 @@
+﻿@inject IDialogService DialogService
+
+@page "/admin"
+
+<h3>Admin</h3>
+
+
+<MudButton Link="newpicture" Variant="Variant.Filled" Color="Color.Primary">Добавить объект</MudButton>
+
+
+<MudTable Items="@pictures" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Изображение</MudTh>
+        <MudTh>Название</MudTh>
+        <MudTh>Видео</MudTh>
+        <MudTh>Автор</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Изображение">@context.ImgUrl</MudTd>
+        <MudTd DataLabel="Название">@context.Text</MudTd>
+        <MudTd DataLabel="Видео">@context.VideoUrl</MudTd>
+        <MudTd DataLabel="Автор">@context.Author</MudTd>
+        <MudTd><MudButton Color="Color.Primary" @onclick="@((e) => UpdateDialog(context))">Правка</MudButton></MudTd>
+        <MudTd><MudButton Color="Color.Secondary" @onclick="@((e) => DeleteDialog(context))">Удалить</MudButton></MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+
+
+@code {
+    private ICollection<Picture> pictures;
+
+
+    protected override void OnInitialized()
+    {
+        pictures = new List<Picture>
+{
+            new Picture() {  ImgUrl = @"/images/image4.jpeg", Text = "Дети войны. 1943 год", VideoUrl = @"/video/001.mp4", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = @"/images/image5.jpeg", Text = "Лето 41", VideoUrl = @"/video/003.mp4", Author = "Илья  Овчаренко"},
+            new Picture() {  ImgUrl = @"/images/image6.jpeg", Text = "Горький хлеб Победы", VideoUrl = @"/video/004.mp4", Author = "А.П.Ткачёв и С.П.Ткачёв"},
+            new Picture() {  ImgUrl = "", Text = "Суворовцы", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "Моряки", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "Порад Победы", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "Знамя над Рейгстагом", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "Оборона Сталинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "Конец блокады Ленинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "В тылу врага", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "Конец блокады Ленинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
+            new Picture() {  ImgUrl = "", Text = "В тылу врага", VideoUrl = "", Author = "Алексей  Александрович Жабский"}
+        };
+    }
+
+
+    private async Task UpdateDialog(Picture context)
+    {
+        //DialogService.Show<VideoDialog>("Simple Dialog");
+
+
+        var parameters = new DialogParameters { ["context"] = context };
+
+        var dialog = DialogService.Show<UpdateDialog>("Delete Server", parameters);
+        var result = await dialog.Result;
+        if(!result.Cancelled)
+        {
+            var resUpdate = dialog.Result.Result.Data as Picture;
+            pictures.Remove(context);
+            pictures.Add(resUpdate);
+        }
+    }
+
+
+    private async Task DeleteDialog(Picture context)
+    {
+        //DialogService.Show<VideoDialog>("Simple Dialog");
+
+
+        var parameters = new DialogParameters { ["context"] = context };
+
+        var dialog = DialogService.Show<DeleteDialog>("Delete Server", parameters);
+        var result = await dialog.Result;
+        if(!result.Cancelled)
+        {
+            var res = dialog.Result.Result.Data as Picture;
+            pictures.Remove(res);
+
+        }
+
+    }
+
+
+
+
+}
