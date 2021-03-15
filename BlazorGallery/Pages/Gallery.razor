@@ -1,45 +1,31 @@
 ﻿@inject IDialogService DialogService
+@inject StorageService StorageService
 
 @page "/gallery"
 
 <MudGrid>
     @foreach (var picture in pictures)
     {
-    <MudItem xs="4" @onclick="@((e) => OpenVideo(picture))" Class="picture">
-        <MudCard>
-            <MudCardMedia Image="@picture.Image" Height="400" />
-            <MudCardContent>
-                <MudText Typo="Typo.h6">@picture.Author</MudText>
-                <MudText Typo="Typo.h5">@picture.Text</MudText>
-            </MudCardContent>
+<MudItem xs="4" @onclick="@((e) => OpenVideo(picture))" Class="picture">
+    <MudCard>
+        <MudCardMedia Image="@picture.Image" Height="400" />
+        <MudCardContent>
+            <MudText Typo="Typo.h6">@picture.Author</MudText>
+            <MudText Typo="Typo.h5">@picture.Text</MudText>
+        </MudCardContent>
 
-        </MudCard>
-    </MudItem>
-    }
+    </MudCard>
+</MudItem>}
 </MudGrid>
 
 @code { 
     
-    private ICollection<Picture> pictures;
+    private IList<Picture> pictures = null;
 
 
     protected override void OnInitialized()
     {
-        pictures = new List<Picture>
-            {
-                    new Picture() {  Image = @"/images/image4.jpeg", Text = "Дети войны. 1943 год", VideoUrl = @"/video/001.mp4", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = @"/images/image5.jpeg", Text = "Лето 41", VideoUrl = @"/video/003.mp4", Author = "Илья  Овчаренко"},
-                    new Picture() {  Image = @"/images/image6.jpeg", Text = "Горький хлеб Победы", VideoUrl = @"/video/004.mp4", Author = "А.П.Ткачёв и С.П.Ткачёв"},
-                    new Picture() {  Image = "", Text = "Суворовцы", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "Моряки", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "Порад Победы", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "Знамя над Рейгстагом", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "Оборона Сталинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "Конец блокады Ленинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "В тылу врага", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "Конец блокады Ленинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-                    new Picture() {  Image = "", Text = "В тылу врага", VideoUrl = "", Author = "Алексей  Александрович Жабский"}
-                 };
+        pictures = StorageService.GetPictures().ToList();
     }
 
     private async Task OpenVideo(Picture picture)
@@ -49,4 +35,4 @@
         var dialog = DialogService.Show<ShowVideoDialog>("Просмотр видео", parameters);
         var result = await dialog.Result;
     } 
-}
+ }

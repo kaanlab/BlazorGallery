@@ -16,7 +16,7 @@
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Изображение">@context.Image</MudTd>
+        <MudTd DataLabel="Изображение"><MudAvatar Rounded="true" Image="@context.Image" Size="Size.Large" /></MudTd>
         <MudTd DataLabel="Название">@context.Text</MudTd>
         <MudTd DataLabel="Автор">@context.Author</MudTd>
         <MudTd DataLabel="Видео">@context.VideoUrl</MudTd>
@@ -27,7 +27,8 @@
 
 
 @code { 
-    
+
+
     private IList<Picture> pictures = null;
 
 
@@ -79,5 +80,5 @@
             Snackbar.Add("Картина успешно удалена!", Severity.Success);
 
         }
-    } 
+    }
 }

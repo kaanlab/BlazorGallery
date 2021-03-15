@@ -1,9 +1,23 @@
-﻿<MudDialog>
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
+@inject FileStorageService FileStorageService
+
+<MudDialog>
     <DialogContent>
         <EditForm EditContext="@editContext">
             <DataAnnotationsValidator />
-            <MudTextField Label="Изображение"
-                          @bind-Value="Context.Image" For="@(() => Context.Image)" />
+            <MudGrid Class="mt-5">
+                <MudItem>
+                    <MudAvatar Rounded="true" Image="@Context.Image" Size="Size.Large" />
+                 </MudItem>
+                <MudItem>
+                    <InputFile id="fileInput" OnChange="OnInputFileChange" hidden />
+                    <MudFab HtmlTag="label"
+                            Color="Color.Secondary"
+                            Icon="@Icons.Filled.Image"
+                            Label="Загрузить"
+                            for="fileInput" />
+                </MudItem>
+            </MudGrid>
             <MudTextField Label="Название" Class="mt-3"
                           @bind-Value="Context.Text" For="@(() => Context.Text)" />
             <MudTextField Label="Автор" Class="mt-3"
@@ -20,6 +34,8 @@
 </MudDialog>
 
 @code {
+
+    private readonly string imgPath = "images";
 
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
@@ -41,6 +57,14 @@
     {
         formInvalid = !editContext.Validate();
         StateHasChanged();
+    }
+
+
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var path = System.IO.Path.Combine(WebHostEnvironment.WebRootPath, imgPath);
+        await FileStorageService.UploadFile(path, e.File);
+        Context.Image = @$"{imgPath}/{e.File.Name}";
     }
 
     void AddOrUpdate() => MudDialog.Close(DialogResult.Ok(Context));

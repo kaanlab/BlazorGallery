@@ -34,6 +34,7 @@ namespace BlazorGallery
             services.AddDbContext<StorageService>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
+            services.AddTransient<FileStorageService>();
             services.AddMudServices();
         }
 

@@ -2,9 +2,9 @@
     <DialogContent>
         <EditForm EditContext="@editContext">
             <DataAnnotationsValidator />
-            <MudTextField Label="Изображение"
+            <MudTextField Label="Ссылка на видео"
                           @bind-Value="Context.VideoUrl" For="@(() => Context.VideoUrl)" />
-            <MudTextField Label="Название" Class="mt-3"
+            <MudTextField Label="Текст" Class="mt-3"
                           @bind-Value="Context.Text" For="@(() => Context.Text)" />
         </EditForm>
     </DialogContent>
