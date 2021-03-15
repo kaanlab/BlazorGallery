@@ -1,68 +1,7 @@
-﻿@using BlazorGallery.Models
-@inject IDialogService DialogService
-
+﻿@inject IDialogService DialogService
 
 @page "/"
 
 
-
-
-
-    <MudGrid>
-                @foreach (var picture in pictures)
-                {
-
-                    <MudItem xs="4" @onclick="@((e) => OpenDialog(picture))" Class="picture">
-                        <MudCard>
-                            <MudCardMedia Image="@picture.ImgUrl" Height="400"/>
-                            <MudCardContent>
-                                <MudText Typo="Typo.h6">@picture.Author</MudText>
-                                <MudText Typo="Typo.h5">@picture.Text</MudText>
-                            </MudCardContent>
-                            
-                        </MudCard>
-                    </MudItem>
-
-                }
-    </MudGrid>
-
-
-
-
-
-@code {
-    private ICollection<Picture> pictures;
-
-
-    protected override void OnInitialized()
-    {
-        pictures = new List<Picture>
-{
-            new Picture() {  ImgUrl = @"/images/image4.jpeg", Text = "Дети войны. 1943 год", VideoUrl = @"/video/001.mp4", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = @"/images/image5.jpeg", Text = "Лето 41", VideoUrl = @"/video/003.mp4", Author = "Илья  Овчаренко"},
-            new Picture() {  ImgUrl = @"/images/image6.jpeg", Text = "Горький хлеб Победы", VideoUrl = @"/video/004.mp4", Author = "А.П.Ткачёв и С.П.Ткачёв"},
-            new Picture() {  ImgUrl = "", Text = "Суворовцы", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "Моряки", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "Порад Победы", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "Знамя над Рейгстагом", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "Оборона Сталинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "Конец блокады Ленинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "В тылу врага", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "Конец блокады Ленинграда", VideoUrl = "", Author = "Алексей  Александрович Жабский"},
-            new Picture() {  ImgUrl = "", Text = "В тылу врага", VideoUrl = "", Author = "Алексей  Александрович Жабский"}
-        };
-    }
-
-    private async Task OpenDialog(Picture picture)
-    {
-        //DialogService.Show<VideoDialog>("Simple Dialog");
-
-
-        var parameters = new DialogParameters { ["picture"] = picture };
-
-        var dialog = DialogService.Show<VideoDialog>("Delete Server", parameters);
-        var result = await dialog.Result;
-    }
-}
 
 

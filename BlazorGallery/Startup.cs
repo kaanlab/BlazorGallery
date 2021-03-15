@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorGallery.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorGallery.Data;
 using MudBlazor.Services;
 
 namespace BlazorGallery
@@ -29,7 +30,10 @@ namespace BlazorGallery
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+
+            services.AddDbContext<StorageService>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+
             services.AddMudServices();
         }
 

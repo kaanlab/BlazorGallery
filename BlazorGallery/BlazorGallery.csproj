@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="Data\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\video\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MudBlazor" Version="5.0.3" />
+    <PackageReference Include="MudBlazor" Version="5.0.5" />
   </ItemGroup>
 </Project>

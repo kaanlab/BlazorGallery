@@ -1,0 +1,83 @@
+﻿@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject StorageService StorageService
+
+<MudTable Items="@intros" Hover="true">
+    <ToolBarContent>
+        @if (!intros.Any())
+        {
+            <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="Color.Primary" Size="Size.Large" @onclick="AddIntro" Class="mr-3" />
+        }
+        <MudText Typo="Typo.h6">Главная </MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Ссылка на видео</MudTh>
+        <MudTh>Текст</MudTh>
+        <MudTh>Опубликована</MudTh>
+        <MudTh></MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Ссылка на видео">@context.VideoUrl</MudTd>
+        <MudTd DataLabel="Текст">@context.Text</MudTd>
+        <MudTd><MudButton Color="Color.Info" @onclick="@((e) => UpdateIntro(context))">Обновить</MudButton></MudTd>
+        <MudTd><MudButton Color="Color.Error" @onclick="@((e) => DeleteIntro(context))">Удалить</MudButton></MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+@code {
+
+    private IList<Intro> intros = null;
+
+
+    protected override void OnInitialized()
+    {
+        intros = StorageService.GetIntros().ToList();
+    }
+
+    private async Task AddIntro()
+    {
+        var dialog = DialogService.Show<IntroAddOrUpdateDialog>("Новая информация на главной");
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var addedIntro = await StorageService.AddIntro(dialog.Result.Result.Data as Intro);
+            intros.Add(addedIntro);
+            Snackbar.Add("Информация успешно добавлена!", Severity.Success);
+        }
+    }
+
+
+    private async Task UpdateIntro(Intro context)
+    {
+        var parameters = new DialogParameters { ["context"] = context };
+
+        var dialog = DialogService.Show<IntroAddOrUpdateDialog>("Обновить информацию", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var updatedIntro = await StorageService.UpdateIntro(dialog.Result.Result.Data as Intro);
+            var index = intros.IndexOf(context);
+            intros.Remove(context);
+            intros.Insert(index, updatedIntro);
+            Snackbar.Add("Информация успешно обновлена!", Severity.Success);
+        }
+    }
+
+
+    private async Task DeleteIntro(Intro context)
+    {
+        var parameters = new DialogParameters { ["context"] = context };
+
+        var dialog = DialogService.Show<IntroDeleteDialog>("Удалить информацию", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var deletedIntro = await StorageService.DeleteIntro(dialog.Result.Result.Data as Intro);
+            intros.Remove(deletedIntro);
+            Snackbar.Add("Информация успешно удалена!", Severity.Success);
+
+        }
+    } 
+ }

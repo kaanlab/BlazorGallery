@@ -1,23 +1,22 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudText>@Context.ImgUrl</MudText>
+        <MudText>@Context.Image</MudText>
         <MudText>@Context.Text</MudText>
         <MudText>@Context.VideoUrl</MudText>
         <MudText>@Context.Author</MudText>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Secondary" Variant="Variant.Filled" OnClick="Submit">Удалить</MudButton>
+        <MudButton Color="Color.Secondary" Variant="Variant.Filled" OnClick="Delete">Удалить</MudButton>
     </DialogActions>
 </MudDialog>
 
-@code {
+@code { 
+    
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
     [Parameter] public Picture Context { get; set; }
 
-
-
-    void Submit() => MudDialog.Close(DialogResult.Ok(Context));
-    void Cancel() => MudDialog.Cancel();
+    void Delete() => MudDialog.Close(DialogResult.Ok(Context));
+    void Cancel() => MudDialog.Cancel(); 
 }

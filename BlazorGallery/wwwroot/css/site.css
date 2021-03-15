@@ -49,9 +49,12 @@ a, .btn-link {
         top: 0.5rem;
     }
 
-.picture:hover {
-    transform: scale(1.1);
-    transition-duration: 0.5s;
+.picture {
+    transition: transform .5s ease;
 }
+
+    .picture:hover {
+        transform: scale(1.1);
+    }
 
 

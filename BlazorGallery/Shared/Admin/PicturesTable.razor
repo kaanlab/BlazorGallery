@@ -1,0 +1,83 @@
+﻿@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject StorageService StorageService
+
+<MudTable Items="@pictures" Hover="true">
+    <ToolBarContent>
+        <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="Color.Primary" Size="Size.Large" @onclick="AddPicture" Class="mr-3" />
+        <MudText Typo="Typo.h6">Картины</MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Изображение</MudTh>
+        <MudTh>Название</MudTh>
+        <MudTh>Автор</MudTh>
+        <MudTh>Видео</MudTh>
+        <MudTh></MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Изображение">@context.Image</MudTd>
+        <MudTd DataLabel="Название">@context.Text</MudTd>
+        <MudTd DataLabel="Автор">@context.Author</MudTd>
+        <MudTd DataLabel="Видео">@context.VideoUrl</MudTd>
+        <MudTd><MudButton Color="Color.Info" @onclick="@((e) => UpdatePicture(context))">Обновить</MudButton></MudTd>
+        <MudTd><MudButton Color="Color.Error" @onclick="@((e) => DeletePicture(context))">Удалить</MudButton></MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+@code { 
+    
+    private IList<Picture> pictures = null;
+
+
+    protected override void OnInitialized()
+    {
+        pictures = StorageService.GetPictures().ToList();
+    }
+
+    private async Task AddPicture()
+    {
+        var dialog = DialogService.Show<PictureAddOrUpdateDialog>("Новая картина");
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var addedPicture = await StorageService.AddPicture(dialog.Result.Result.Data as Picture);
+            pictures.Add(addedPicture);
+            Snackbar.Add("Новая картина успешно добавлена!", Severity.Success);
+        }
+    }
+
+
+    private async Task UpdatePicture(Picture context)
+    {
+        var parameters = new DialogParameters { ["context"] = context };
+
+        var dialog = DialogService.Show<PictureAddOrUpdateDialog>("Обновить картину", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var updatedPicture = await StorageService.UpdatePicture(dialog.Result.Result.Data as Picture);
+            var index = pictures.IndexOf(context);
+            pictures.Remove(context);
+            pictures.Insert(index, updatedPicture);
+            Snackbar.Add("Информация о картине успешно обновлена!", Severity.Success);
+        }
+    }
+
+
+    private async Task DeletePicture(Picture context)
+    {
+        var parameters = new DialogParameters { ["context"] = context };
+
+        var dialog = DialogService.Show<PictureDeleteDialog>("Удалить картину", parameters);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var deletedPicture = await StorageService.DeletePicture(dialog.Result.Result.Data as Picture);
+            pictures.Remove(deletedPicture);
+            Snackbar.Add("Картина успешно удалена!", Severity.Success);
+
+        }
+    } 
+}
