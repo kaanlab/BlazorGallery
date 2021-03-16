@@ -1,12 +1,12 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudText>@Context.Image</MudText>
+        <MudText>@Context.ImageUrl</MudText>
         <MudText>@Context.Text</MudText>
-        <MudText>@Context.VideoUrl</MudText>
         <MudText>@Context.Author</MudText>
+        <MudText>@Context.EmbededCode</MudText>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="Cancel">Отменить</MudButton>
         <MudButton Color="Color.Secondary" Variant="Variant.Filled" OnClick="Delete">Удалить</MudButton>
     </DialogActions>
 </MudDialog>

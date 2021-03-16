@@ -2,24 +2,28 @@
 @inject ISnackbar Snackbar
 @inject StorageService StorageService
 
-<MudTable Items="@intros" Hover="true">
+<MudTable Items="@intros" Hover="true" Class="my-5">
     <ToolBarContent>
         @if (!intros.Any())
         {
             <MudIconButton Icon="@Icons.Material.Filled.AddBox" Color="Color.Primary" Size="Size.Large" @onclick="AddIntro" Class="mr-3" />
         }
-        <MudText Typo="Typo.h6">Главная </MudText>
+        <MudText Typo="Typo.h6">Главная</MudText>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Ссылка на видео</MudTh>
-        <MudTh>Текст</MudTh>
+        <MudTh>Видео</MudTh>
+        <MudTh>Заголовок</MudTh>
+        <MudTh>Основной текст</MudTh>
         <MudTh></MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Ссылка на видео">@context.VideoUrl</MudTd>
-        <MudTd DataLabel="Текст">@context.Text</MudTd>
-        <MudTd><MudButton Color="Color.Info" @onclick="@((e) => UpdateIntro(context))">Обновить</MudButton></MudTd>
+        <MudTd DataLabel="Видео">
+            <img class="img-thumbnail" src="https://img.youtube.com/vi/@context.EmbededCode/default.jpg" />
+        </MudTd>
+        <MudTd DataLabel="Заголовок">@context.MainText</MudTd>
+        <MudTd DataLabel="Основной текст">@context.BodyText</MudTd>
+        <MudTd><MudButton Color="Color.Info" @onclick="@((e) => UpdateIntro(context))">Изменить</MudButton></MudTd>
         <MudTd><MudButton Color="Color.Error" @onclick="@((e) => DeleteIntro(context))">Удалить</MudButton></MudTd>
     </RowTemplate>
 </MudTable>

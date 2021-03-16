@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorGallery.Migrations
 {
     [DbContext(typeof(StorageService))]
-    [Migration("20210315132018_InitMigration")]
+    [Migration("20210316085249_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,11 +23,15 @@ namespace BlazorGallery.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Text")
+                    b.Property<string>("BodyText")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("VideoUrl")
+                    b.Property<string>("EmbededCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MainText")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -46,15 +50,15 @@ namespace BlazorGallery.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("EmbededCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("VideoUrl")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

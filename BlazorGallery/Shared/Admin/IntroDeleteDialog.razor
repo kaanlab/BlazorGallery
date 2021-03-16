@@ -1,10 +1,11 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudText>@Context.VideoUrl</MudText>
-        <MudText>@Context.Text</MudText>
+        <MudText>@Context.EmbededCode</MudText>
+        <MudText>@Context.MainText</MudText>
+        <MudText>@Context.BodyText</MudText>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="Cancel">Отменить</MudButton>
         <MudButton Color="Color.Secondary" Variant="Variant.Filled" OnClick="Delete">Удалить</MudButton>
     </DialogActions>
 </MudDialog>

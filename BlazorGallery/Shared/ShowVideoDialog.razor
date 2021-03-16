@@ -1,14 +1,21 @@
-﻿<MudDialog>
-    
+﻿<MudDialog>    
     <DialogContent>
-        <iframe style="height:50vh;width:90vh;" src="@picture.VideoUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </DialogContent>
-    
+        <iframe style="height:50vh;width:90vh;" src="@videoSource" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </DialogContent>    
 </MudDialog>
+
 @code {
+
+    private string videoSource = "";
+
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
-    [Parameter] public Picture picture { get; set; } = new Picture();
+    [Parameter] public Picture picture { get; set; }
+
+    protected override void OnInitialized()
+    {
+        videoSource = $@"https://www.youtube.com/embed/{picture.EmbededCode}";
+    }
 
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
     void Cancel() => MudDialog.Cancel();

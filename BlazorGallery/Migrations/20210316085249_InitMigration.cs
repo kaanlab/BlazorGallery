@@ -12,8 +12,9 @@ namespace BlazorGallery.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    VideoUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    Text = table.Column<string>(type: "TEXT", nullable: false)
+                    EmbededCode = table.Column<string>(type: "TEXT", nullable: false),
+                    MainText = table.Column<string>(type: "TEXT", nullable: false),
+                    BodyText = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,10 +27,10 @@ namespace BlazorGallery.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Image = table.Column<string>(type: "TEXT", nullable: false),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
                     Text = table.Column<string>(type: "TEXT", nullable: false),
                     Author = table.Column<string>(type: "TEXT", nullable: false),
-                    VideoUrl = table.Column<string>(type: "TEXT", nullable: false)
+                    EmbededCode = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

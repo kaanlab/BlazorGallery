@@ -11,10 +11,14 @@ namespace BlazorGallery.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для заполнения")]
-        public string VideoUrl { get; set; }
+        public string EmbededCode { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для заполнения")]
         [MinLength(10, ErrorMessage = "Миннимальная длина 10 символов")]
-        public string Text { get; set; }
+        public string MainText { get; set; }
+
+        [Required(ErrorMessage = "Это поле обязательно для заполнения")]
+        [MinLength(10, ErrorMessage = "Миннимальная длина 10 символов")]
+        public string BodyText { get; set; }
     }
 }

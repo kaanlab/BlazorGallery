@@ -32,8 +32,8 @@ namespace BlazorGallery.Data
             var pictureToUpdate = await this.Pictures.FirstOrDefaultAsync(o => o.Id == picture.Id);
             pictureToUpdate.Author = picture.Author;
             pictureToUpdate.Text = picture.Text;
-            pictureToUpdate.Image = picture.Image;
-            pictureToUpdate.VideoUrl = picture.VideoUrl;
+            pictureToUpdate.ImageUrl = picture.ImageUrl;
+            pictureToUpdate.EmbededCode = picture.EmbededCode;
             var pictureEntry = this.Pictures.Update(pictureToUpdate);
             await this.SaveChangesAsync();
             return pictureEntry.Entity;
@@ -53,6 +53,8 @@ namespace BlazorGallery.Data
 
         public IQueryable<Intro> GetIntros() => this.Intros.AsQueryable();
 
+        public Intro GetFirstIntro() => this.Intros.FirstOrDefault();
+
         public async Task<Intro> AddIntro(Intro intro)
         {
             var introEntry = await this.Intros.AddAsync(intro);
@@ -63,8 +65,9 @@ namespace BlazorGallery.Data
         public async Task<Intro> UpdateIntro(Intro intro)
         {
             var introToUpdate = await this.Intros.FirstOrDefaultAsync(o => o.Id == intro.Id);
-            introToUpdate.VideoUrl = intro.VideoUrl;
-            introToUpdate.Text = intro.Text;
+            introToUpdate.EmbededCode = intro.EmbededCode;
+            introToUpdate.MainText = intro.MainText;
+            introToUpdate.BodyText = intro.BodyText;
             var introEntry = this.Intros.Update(introToUpdate);
             await this.SaveChangesAsync();
             return introEntry.Entity;

@@ -8,7 +8,7 @@ namespace BlazorGallery.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для заполнения")]
-        public string Image { get; set; }
+        public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для заполнения")]
         [MinLength(6, ErrorMessage = "Миннимальная длина 6 символов")]
@@ -19,6 +19,6 @@ namespace BlazorGallery.Models
         public string Author { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно для заполнения")]
-        public string VideoUrl { get; set; }
+        public string EmbededCode { get; set; }
     }
 }

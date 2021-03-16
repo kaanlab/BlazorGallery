@@ -1,5 +1,31 @@
-﻿@page "/"
+﻿@inject StorageService StorageService
 
+@page "/"
+    <div class="video-container">
+        <div class="video-foreground">
+            <iframe src="@videoSource" allowFullScreen></iframe>
+        </div>
+    </div>
+
+    <div class="index-content">
+        <MudText Class="m-2" Typo="Typo.h2">@intro?.MainText</MudText>
+        <MudText Class="m-2" Typo="Typo.body1">@intro?.BodyText</MudText>
+        <MudButton Link="gallery" Variant="Variant.Outlined" >Вход</MudButton>
+    </div>
+
+@code { 
+
+    private Intro intro = null;
+    private string videoSource = "https://www.youtube.com/embed/W0LHTWG-UmQ?controls=0&loop=1&autoplay=1&playlist=W0LHTWG-UmQ";
+
+    protected override void OnInitialized()
+    {
+        intro = StorageService.GetFirstIntro();
+        if (intro is { })            
+            videoSource = $@"https://www.youtube.com/embed/{intro.EmbededCode}?controls=0&loop=1&autoplay=1&playlist={intro.EmbededCode}";
+
+    }
+}
 
 
 

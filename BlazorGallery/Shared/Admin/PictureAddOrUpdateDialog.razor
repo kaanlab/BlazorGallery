@@ -7,8 +7,15 @@
             <DataAnnotationsValidator />
             <MudGrid Class="mt-5">
                 <MudItem>
-                    <MudAvatar Rounded="true" Image="@Context.Image" Size="Size.Large" />
-                 </MudItem>
+                    @if (string.IsNullOrEmpty(Context.ImageUrl))
+                    {
+                        <img class="img-thumbnail" src="/images/empty.jpg" style="min-height:250px;height:250px;" />
+                    }
+                    else
+                    {
+                        <img class="img-thumbnail" src="@Context.ImageUrl" style="min-height:250px;height:250px;" />
+                    }
+                </MudItem>
                 <MudItem>
                     <InputFile id="fileInput" OnChange="OnInputFileChange" hidden />
                     <MudFab HtmlTag="label"
@@ -18,14 +25,16 @@
                             for="fileInput" />
                 </MudItem>
             </MudGrid>
-            <MudTextField Label="Название" Class="mt-3"
+            <MudTextField Label="Название" Class="mt-3" Lines="2"
                           @bind-Value="Context.Text" For="@(() => Context.Text)" />
             <MudTextField Label="Автор" Class="mt-3"
                           @bind-Value="Context.Author" For="@(() => Context.Author)" />
             <MudTextField Label="Видео" Class="mt-3"
-                          @bind-Value="Context.VideoUrl" For="@(() => Context.VideoUrl)" />
-
-        </EditForm>
+                          @bind-Value="Context.EmbededCode" For="@(() => Context.EmbededCode)" />
+            <MudItem Class="mt-3">
+                <img class="img-thumbnail" src="https://img.youtube.com/vi/@Context.EmbededCode/default.jpg" />
+            </MudItem>
+</EditForm>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Отменить</MudButton>
@@ -64,7 +73,7 @@
     {
         var path = System.IO.Path.Combine(WebHostEnvironment.WebRootPath, imgPath);
         await FileStorageService.UploadFile(path, e.File);
-        Context.Image = @$"{imgPath}/{e.File.Name}";
+        Context.ImageUrl = @$"{imgPath}/{e.File.Name}";
     }
 
     void AddOrUpdate() => MudDialog.Close(DialogResult.Ok(Context));

@@ -49,12 +49,60 @@ a, .btn-link {
         top: 0.5rem;
     }
 
-.picture {
+.gallery-picture {
     transition: transform .5s ease;
 }
 
-    .picture:hover {
+    .gallery-picture:hover {
         transform: scale(1.1);
     }
 
+.video-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
 
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .video-container iframe {
+        pointer-events: none;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: -60px;
+        left: 0;
+        width: 100%;
+        height: calc(100% + 120px);
+    }
+
+.video-foreground {
+    pointer-events: none;
+}
+
+
+/* Add some content at the bottom of the video/page */
+.index-content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+.picture-text {
+    font-family: 'Pacifico', cursive;
+}
+
+.bg-control-panel {
+    background-color: aliceblue;
+    height: 100vh;
+}

@@ -3,36 +3,39 @@
 
 @page "/gallery"
 
-<MudGrid>
-    @foreach (var picture in pictures)
-    {
-<MudItem xs="4" @onclick="@((e) => OpenVideo(picture))" Class="picture">
-    <MudCard>
-        <MudCardMedia Image="@picture.Image" Height="400" />
-        <MudCardContent>
-            <MudText Typo="Typo.h6">@picture.Author</MudText>
-            <MudText Typo="Typo.h5">@picture.Text</MudText>
-        </MudCardContent>
+<MudContainer Fixed="true">
+    <div class="float-right m-4">
+        <MudFab Color="Color.Secondary" Icon="@Icons.Material.Filled.Edit" Link="admin" />
+    </div>
+    <MudGrid>
+        @foreach (var picture in pictures)
+        {
+            <MudItem xs="4" @onclick="@((e) => OpenVideo(picture))" Class="gallery-picture">
+            <MudCard>
+                <MudCardMedia Image="@picture.ImageUrl" Height="400" />
+                <MudCardContent>
+                    <h4 class="picture-text">@picture.Text</h4>
+                    <h6 class="text-right">@picture.Author</h6>
+                </MudCardContent>
+        
+            </MudCard>
+            </MudItem>
+         }
+    </MudGrid>
+</MudContainer>
 
-    </MudCard>
-</MudItem>}
-</MudGrid>
-
-@code { 
-    
-    private IList<Picture> pictures = null;
+    @code { private IList<Picture> pictures = null;
 
 
-    protected override void OnInitialized()
-    {
-        pictures = StorageService.GetPictures().ToList();
-    }
+                protected override void OnInitialized()
+                {
+                    pictures = StorageService.GetPictures().ToList();
+                }
 
-    private async Task OpenVideo(Picture picture)
-    {
-        var parameters = new DialogParameters { ["picture"] = picture };
+                private async Task OpenVideo(Picture picture)
+                {
+                    var parameters = new DialogParameters { ["picture"] = picture };
 
-        var dialog = DialogService.Show<ShowVideoDialog>("Просмотр видео", parameters);
-        var result = await dialog.Result;
-    } 
- }
+                    var dialog = DialogService.Show<ShowVideoDialog>("Просмотр видео", parameters);
+                    var result = await dialog.Result;
+                } }

@@ -3,9 +3,14 @@
         <EditForm EditContext="@editContext">
             <DataAnnotationsValidator />
             <MudTextField Label="Ссылка на видео"
-                          @bind-Value="Context.VideoUrl" For="@(() => Context.VideoUrl)" />
-            <MudTextField Label="Текст" Class="mt-3"
-                          @bind-Value="Context.Text" For="@(() => Context.Text)" />
+                          @bind-Value="Context.EmbededCode" For="@(() => Context.EmbededCode)" />
+            <div class="ma-4">
+                <img class="img-thumbnail" src="https://img.youtube.com/vi/@Context.EmbededCode/default.jpg">
+            </div>
+            <MudTextField Label="Заголовок" Class="mt-3" Lines="2"
+                          @bind-Value="Context.MainText" For="@(() => Context.MainText)" />
+            <MudTextField Label="Основной текст" Class="mt-3" Lines="3"
+                          @bind-Value="Context.BodyText" For="@(() => Context.BodyText)" />
         </EditForm>
     </DialogContent>
     <DialogActions>
