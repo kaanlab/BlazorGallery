@@ -1,0 +1,7 @@
+﻿@page
+@model BlazorGallery.Areas.Identity.Pages.Account.RegisterModel
+@{
+    // Stop users registering
+    Response.Redirect("/Identity/Account/Login");
+    ViewData["Title"] = "Register";
+}

@@ -1,4 +1,5 @@
 ﻿using BlazorGallery.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlazorGallery.Data
 {
-    public class StorageService : DbContext
+    public class StorageService : IdentityDbContext
     {
         public StorageService(DbContextOptions<StorageService> options)
             : base(options)

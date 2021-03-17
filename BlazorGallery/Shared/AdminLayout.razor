@@ -1,9 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
+
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudDrawerHeader>
             <MudText Typo="Typo.h5" Class="mt-1">Панель управления</MudText>
+            <AuthorizeView>
+                <Authorized>
+                    <a href="Identity/Account/Manage">@context.User.Identity.Name</a>
+                    <form method="post" action="Identity/Account/LogOut">
+                        <button type="submit" class="nav-link btn btn-link">Log out</button>
+                    </form>
+                </Authorized>
+            </AuthorizeView>
         </MudDrawerHeader>
     </MudAppBar>
 
@@ -13,3 +22,4 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+
