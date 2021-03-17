@@ -11,15 +11,19 @@
         <MudText Typo="Typo.h6">Главная</MudText>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Видео</MudTh>
+        <MudTh>Видео заднего плана</MudTh>
+        <MudTh>Основное видео</MudTh>
         <MudTh>Заголовок</MudTh>
         <MudTh>Основной текст</MudTh>
         <MudTh></MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Видео">
-            <img class="img-thumbnail" src="https://img.youtube.com/vi/@context.EmbededCode/default.jpg" />
+        <MudTd DataLabel="Видео заднего плана">
+            <img class="img-thumbnail" src="https://img.youtube.com/vi/@context.BackgroundCode/default.jpg" />
+        </MudTd>
+        <MudTd DataLabel="Основное видео">
+            <img class="img-thumbnail" src="https://img.youtube.com/vi/@context.IntroCode/default.jpg" />
         </MudTd>
         <MudTd DataLabel="Заголовок">@context.MainText</MudTd>
         <MudTd DataLabel="Основной текст">@context.BodyText</MudTd>

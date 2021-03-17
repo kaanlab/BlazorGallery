@@ -65,7 +65,8 @@ namespace BlazorGallery.Data
         public async Task<Intro> UpdateIntro(Intro intro)
         {
             var introToUpdate = await this.Intros.FirstOrDefaultAsync(o => o.Id == intro.Id);
-            introToUpdate.EmbededCode = intro.EmbededCode;
+            introToUpdate.BackgroundCode = intro.BackgroundCode;
+            introToUpdate.IntroCode = intro.IntroCode;
             introToUpdate.MainText = intro.MainText;
             introToUpdate.BodyText = intro.BodyText;
             var introEntry = this.Intros.Update(introToUpdate);

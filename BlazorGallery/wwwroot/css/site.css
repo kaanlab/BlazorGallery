@@ -106,3 +106,19 @@ a, .btn-link {
     background-color: aliceblue;
     height: 100vh;
 }
+
+.container-promo {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-promo {
+    box-shadow: 10px -10px 5px rgba(0,0,0,0.6);
+}
+    
+
