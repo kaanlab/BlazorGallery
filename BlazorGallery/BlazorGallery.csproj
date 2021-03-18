@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.1-beta</Version>
     <UserSecretsId>19af4c3f-9a91-4113-acb7-955d20e599a7</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
