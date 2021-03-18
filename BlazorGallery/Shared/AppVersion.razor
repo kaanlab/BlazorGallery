@@ -1,0 +1,18 @@
+﻿@using System.Reflection;
+
+<div class="app-version">
+    <MudChip Color="Color.Info" Icon="@Icons.Material.Filled.CheckCircle">@appVersion</MudChip>
+</div>
+
+@code { 
+    string appVersion;
+
+    protected override void OnInitialized()
+    {
+        appVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>() is { }
+            ? Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion
+            : "undefine";
+    }
+}
+
+

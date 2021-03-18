@@ -16,12 +16,15 @@
 <div class="index-content">
     <MudText Class="m-2" Typo="Typo.h2">@intro?.MainText</MudText>
     <MudText Class="m-2" Typo="Typo.body1">@intro?.BodyText</MudText>
-    <MudButton Link="gallery" Variant="Variant.Outlined">Вход</MudButton>
+    <MudButton Link="gallery" Variant="Variant.Outlined" Size="Size.Large" Style="@buttonStyle">Вход</MudButton>
 </div>
 
-@code { private Intro intro = null;
+@code { 
+    
+    private Intro intro = null;
     private string backgroundVideoSource;
-    private string introVideoSource = "https://www.youtube.com/embed/W0LHTWG-UmQ?controls=0&loop=1&autoplay=1&playlist=W0LHTWG-UmQ";
+    private string introVideoSource;
+    private string buttonStyle = $"color:{Colors.Grey.Lighten5}";
 
     protected override void OnInitialized()
     {

@@ -5,15 +5,21 @@
     <MudAppBar Elevation="1">
         <MudDrawerHeader>
             <MudText Typo="Typo.h5" Class="mt-1">Панель управления</MudText>
+        </MudDrawerHeader>
             <AuthorizeView>
                 <Authorized>
-                    <a href="Identity/Account/Manage">@context.User.Identity.Name</a>
-                    <form method="post" action="Identity/Account/LogOut">
-                        <button type="submit" class="nav-link btn btn-link">Log out</button>
-                    </form>
+                    <div class="row mx-auto">
+                        <a href="Identity/Account/Manage">
+                            <MudAvatar Class="ml-16">
+                                <MudIcon Icon="@Icons.Material.Filled.PermIdentity" />
+                            </MudAvatar>                            
+                        </a>
+                        <form method="post" action="Identity/Account/LogOut">
+                            <MudButton Variant="Variant.Filled" Color="Color.Secondary" type="submit" Class="ml-4">Выход</MudButton>
+                        </form>
+                    </div>
                 </Authorized>
-            </AuthorizeView>
-        </MudDrawerHeader>
+            </AuthorizeView>        
     </MudAppBar>
 
     <MudMainContent Class="bg-control-panel">
