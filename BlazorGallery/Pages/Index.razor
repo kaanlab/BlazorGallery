@@ -22,21 +22,22 @@
 @code { 
     
     private Intro intro = null;
-    private string backgroundVideoSource;
-    private string introVideoSource;
+    private string backgroundVideoSource = "https://www.youtube.com/embed/W0LHTWG-UmQ?playlist=W0LHTWG-UmQ";
+    private string introVideoSource = "https://www.youtube.com/embed/W0LHTWG-UmQ?playlist=W0LHTWG-UmQ";
     private string buttonStyle = $"color:{Colors.Grey.Lighten5}";
 
     protected override void OnInitialized()
     {
         intro = StorageService.GetFirstIntro();
 
-        backgroundVideoSource = string.IsNullOrEmpty(intro.BackgroundCode)
-            ? "https://www.youtube.com/embed/W0LHTWG-UmQ?controls=0&loop=1&autoplay=1&playlist=W0LHTWG-UmQ"
-            : $@"https://www.youtube.com/embed/{intro.BackgroundCode}?controls=0&loop=1&autoplay=1&playlist={intro.BackgroundCode}";
+        if(intro is {})
+        {
+            if(!string.IsNullOrEmpty(intro.BackgroundCode))
+                backgroundVideoSource = $@"https://www.youtube.com/embed/{intro.BackgroundCode}?controls=0&loop=1&autoplay=1&playlist={intro.BackgroundCode}";
 
-        introVideoSource = string.IsNullOrEmpty(intro.IntroCode)
-            ? "https://www.youtube.com/embed/W0LHTWG-UmQ?playlist=W0LHTWG-UmQ"
-            : $@"https://www.youtube.com/embed/{intro.IntroCode}?playlist={intro.IntroCode}";
+            if(!string.IsNullOrEmpty(intro.IntroCode))
+                introVideoSource = $@"https://www.youtube.com/embed/{intro.IntroCode}?playlist={intro.IntroCode}";
+        }   
     }
 }
 
